@@ -2,8 +2,6 @@
 
 This repository contains a PyTorch implementation of **REDCPNet**, an encoder–decoder network for pixel-level road-crack segmentation on **CRACK500**. The project is inspired by the prediction architecture of BASNet and the square convolution-pyramid design of RENet, and compares REDCPNet with U-Net, FCN, and BASNet.
 
-> **Repository scope:** REDCPNet and its training, inference, data-loading, and metric utilities are included. The U-Net, FCN, and BASNet comparison implementations were used in the original experiments but are currently stored locally and are not included here. The results below are transcribed from the thesis and have not been independently reproduced from this repository update.
-
 ## Project at a Glance
 
 | Item | Description |
