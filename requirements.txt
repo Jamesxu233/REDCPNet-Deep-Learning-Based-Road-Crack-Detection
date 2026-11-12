@@ -1,0 +1,1 @@
+# Install a PyTorch/torchvision build matching your CPU/CUDA environment separately.\nnumpy\nscikit-image\nPillow\nmatplotlib\nopencv-python\n# test_metrics.py additionally requires the external sod_metrics package.\n
