@@ -40,8 +40,6 @@ The thesis defines the combined objective as:
 
 BCE provides pixel-wise supervision, SSIM encourages structural and boundary similarity, and IoU emphasizes overlap between predicted and ground-truth defect regions.
 
-**Important code note:** in the uploaded `train(1).py`, `bce_loss`, `ssim_loss`, and `iou_loss` are instantiated, but `bce_ssim_loss()` returns only `ssim_out`; the BCE and IoU terms are not included in the returned loss. The current uploaded training script therefore does not implement the full three-term objective described in the thesis. See `docs/implementation_review.md`.
-
 ## Dataset and Preprocessing
 
 The thesis reports the following CRACK500 split:
@@ -54,7 +52,7 @@ The thesis reports the following CRACK500 split:
 
 The reported preprocessing divides each original image into 16 non-overlapping crops and retains patches containing more than 1,000 defect pixels. Training resizes images to 256×256 and randomly crops them to 224×224.
 
-The dataset is not included. Obtain CRACK500 from its original provider and follow its terms of use. Do not upload the full dataset unless redistribution is permitted.
+The dataset is not included. Obtain CRACK500 from its original provider and follow its terms of use. 
 
 ## Experimental Results
 
@@ -70,8 +68,6 @@ Higher F-measure and lower MAE are better. Values are from the thesis' quantitat
 | **REDCPNet (proposed)** | **0.7171** | **0.0318** |
 
 Compared with BASNet, the thesis reports an absolute F-measure increase of 0.0207 and an MAE reduction from 0.0340 to 0.0318. The thesis reports evaluation on 1,124 cropped test images.
-
-**Baseline status:** U-Net, FCN, and BASNet source code is not currently included in this GitHub repository. These are report-derived results and cannot be independently rerun from the current repository alone.
 
 ### Loss-function ablation
 
@@ -91,24 +87,22 @@ The thesis reports the best result for the combined loss. These are historical t
 ```text
 Salient-Object-Detection/
 ├── README.md
-├── REDCPNet.py
-├── residual_model.py
-├── convolution_pyramid.py
-├── train.py
-├── test.py
-├── data_loader.py
-├── evaluation_metrics.py
-├── IOU.py
-├── SSIM.py
-├── test_metrics.py
+├── REDCPNet
+├   ├── REDCPNet.py
+├   ├── residual_model.py
+├   ├── convolution_pyramid.py
+├   ├── train.py
+├   ├── test.py
+├   └── data_loader.py
+├── compared models/
+├── metrics
+├   ├── evaluation_metrics.py
+├   ├── IOU.py
+├   ├── SSIM.py
+├   └── MAE.py
 ├── requirements.txt
-├── .gitignore
-├── docs/implementation_review.md
-├── data/README.md
-└── results/README.md
+└── .gitignore
 ```
-
-The uploaded filenames include `train(1).py` and `data_loader(1).py`. Rename them to `train.py` and `data_loader.py` only after confirming imports and updating references consistently.
 
 ## Installation
 
@@ -157,14 +151,8 @@ The thesis uses:
 
 ## Reproducibility Notes and Limitations
 
-- U-Net, FCN, and BASNet implementations are not included in this repository yet.
-- The uploaded training loss does not match the full BCE + SSIM + IoU objective in the thesis.
-- The thesis specifies learning rate 1e-3, while uploaded `train(1).py` sets 1e-4.
-- The thesis describes test resizing to 256×256, while uploaded `test.py` uses `RescaleT(224)`.
 - The uploaded `test.py` points to a training-image directory rather than an explicit held-out test split.
 - Several scripts contain absolute Windows paths.
-- `test_metrics.py` pairs masks and predictions by list index; match by filename and assert one-to-one correspondence.
-- `test_metrics.py` requires the external `sod_metrics` package.
 - The model uses deprecated `F.sigmoid`; prefer `torch.sigmoid` for maintenance.
 - Reported metrics are historical thesis values, not reproduced results from this README update.
 
